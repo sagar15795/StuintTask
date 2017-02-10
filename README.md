@@ -1,0 +1,1 @@
+The purpose of this repo is to create a first screen during the Stuint Hackathon under the lead of Oliver. All needed informations are provided through the PDF given by Oliver himself. Good luck!
