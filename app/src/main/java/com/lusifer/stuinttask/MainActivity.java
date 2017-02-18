@@ -3,6 +3,7 @@ package com.lusifer.stuinttask;
 import com.lusifer.stuinttask.model.Data;
 import com.lusifer.stuinttask.model.OtherData;
 import com.lusifer.stuinttask.model.Type;
+import com.lusifer.stuinttask.model.VoteData;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -44,7 +45,16 @@ public class MainActivity extends AppCompatActivity {
         d.setId(11);
         d.setType(Type.Text);
         d.setData(null);
+
+        VoteData voteData =new VoteData();
+
+        voteData.setYes(10);
+        voteData.setNo(20);
+        voteData.setNeutral(70);
+        d.setVoteData(voteData);
         mData.add(d);
+
+
 
         Data d1= new Data();
         d1.setTitle("Post2");
@@ -54,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
         od.setId(121);
         od.setPath("/storage/sdcard0/Pictures/Messenger/received_1306630966124541.jpeg");
         d1.setData(od);
+        voteData =new VoteData();
+        voteData.setYes(20);
+        voteData.setNo(60);
+        voteData.setNeutral(20);
+        d1.setVoteData(voteData);
+
         mData.add(d1);
 
         Data d2= new Data();
@@ -64,6 +80,12 @@ public class MainActivity extends AppCompatActivity {
         od1.setId(121);
         od1.setPath("/storage/sdcard0/DCIM/Camera/VID_20170218_141344.mp4");
         d2.setData(od1);
+        voteData =new VoteData();
+        voteData.setYes(60);
+        voteData.setNo(30);
+        voteData.setNeutral(10);
+        d2.setVoteData(voteData);
+
         mData.add(d2);
 
 

@@ -6,7 +6,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.lusifer.stuinttask"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -34,4 +34,9 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     testCompile 'junit:junit:4.12'
+
+    annotationProcessor "com.github.Raizlabs.DBFlow:dbflow-processor:4.0.0-beta5"
+
+    compile "com.github.Raizlabs.DBFlow:dbflow-core:4.0.0-beta5"
+    compile "com.github.Raizlabs.DBFlow:dbflow:4.0.0-beta5"
 }

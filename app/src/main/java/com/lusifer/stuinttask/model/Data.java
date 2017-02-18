@@ -10,6 +10,16 @@ public class Data {
 
     OtherData data;
 
+    VoteData mVoteData;
+
+    public VoteData getVoteData() {
+        return mVoteData;
+    }
+
+    public void setVoteData(VoteData voteData) {
+        mVoteData = voteData;
+    }
+
     public String getTitle() {
         return title;
     }
