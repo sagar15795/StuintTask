@@ -1,7 +1,7 @@
 package com.lusifer.stuinttask;
 
 
-import com.lusifer.stuinttask.model.Data;
+import com.lusifer.stuinttask.data.model.Data;
 
 import android.content.Context;
 import android.graphics.Bitmap;

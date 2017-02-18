@@ -1,15 +1,31 @@
-package com.lusifer.stuinttask.model;
+package com.lusifer.stuinttask.data.model;
 
-public class Data {
+import com.lusifer.stuinttask.data.local.StuintTaskDatabase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.ForeignKey;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
 
+
+@Table(database = StuintTaskDatabase.class)
+public class Data extends BaseModel{
+
+    @Column
     String title;
 
+    @PrimaryKey
     long id;
 
+    @Column
     Type type;
 
+    @Column
+    @ForeignKey(saveForeignKeyModel = true)
     OtherData data;
 
+    @Column
+    @ForeignKey(saveForeignKeyModel = true)
     VoteData mVoteData;
 
     public VoteData getVoteData() {

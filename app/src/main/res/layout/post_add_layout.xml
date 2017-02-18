@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <EditText
+            android:hint="Enter the post here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:gravity="top|left"
+            android:scrollbars="vertical"
+            android:id="@+id/etPost"/>
+    <Button
+            android:layout_below="@id/etPost"
+            android:id="@+id/bOk"
+            android:text="POST"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <Button
+            android:layout_below="@id/bOk"
+            android:id="@+id/bDismiss"
+            android:text="Dismiss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <Button
+            android:layout_below="@id/bDismiss"
+            android:id="@+id/bBrowse"
+            android:text="Browse File"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <ImageView
+            android:layout_below="@id/etPost"
+            android:layout_toRightOf="@id/bBrowse"
+            android:layout_toEndOf="@id/bBrowse"
+            android:src="@mipmap/ic_launcher"
+            android:id="@+id/ivImage"
+            android:layout_width="wrap_content"
+            android:layout_height="150dp"/>
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.lusifer.stuinttask.model;
+package com.lusifer.stuinttask.data.model;
 
 public enum Type {
         Text,
