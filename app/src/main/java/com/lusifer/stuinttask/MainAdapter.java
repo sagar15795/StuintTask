@@ -2,6 +2,7 @@ package com.lusifer.stuinttask;
 
 
 import com.lusifer.stuinttask.data.model.Data;
+import com.lusifer.stuinttask.data.model.VoteData;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -62,20 +63,20 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         LinearLayout.LayoutParams paramview1, paramview2, paramview3;
-
+        int[] voteData = getVoteData(data.get(position).getVoteData());
         if (holder instanceof ViewHolder) {
 
             paramview1 = new LinearLayout.LayoutParams(
                     0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, data.get(position).getVoteData().getYes());
+                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[0]);
 
             paramview2 = new LinearLayout.LayoutParams(
                     0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, data.get(position).getVoteData().getNeutral());
+                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[1]);
 
             paramview3 = new LinearLayout.LayoutParams(
                     0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, data.get(position).getVoteData().getNo());
+                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[2]);
 
             ((ViewHolder) holder).view1.setLayoutParams(paramview1);
             ((ViewHolder) holder).view2.setLayoutParams(paramview2);
@@ -85,15 +86,15 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             paramview1 = new LinearLayout.LayoutParams(
                     0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, data.get(position).getVoteData().getYes());
+                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[0]);
 
             paramview2 = new LinearLayout.LayoutParams(
                     0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, data.get(position).getVoteData().getNeutral());
+                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[1]);
 
             paramview3 = new LinearLayout.LayoutParams(
                     0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, data.get(position).getVoteData().getNo());
+                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[2]);
 
             ((ImageViewHolder) holder).view1.setLayoutParams(paramview1);
             ((ImageViewHolder) holder).view2.setLayoutParams(paramview2);
@@ -104,18 +105,18 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             ((ImageViewHolder) holder).image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
         } else if (holder instanceof VideoViewHolder) {
-
             paramview1 = new LinearLayout.LayoutParams(
                     0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, data.get(position).getVoteData().getYes());
+                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[0]);
 
             paramview2 = new LinearLayout.LayoutParams(
                     0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, data.get(position).getVoteData().getNeutral());
+                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[1]);
 
             paramview3 = new LinearLayout.LayoutParams(
                     0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, data.get(position).getVoteData().getNo());
+                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[2]);
+
 
             ((VideoViewHolder) holder).view1.setLayoutParams(paramview1);
             ((VideoViewHolder) holder).view2.setLayoutParams(paramview2);
@@ -128,6 +129,15 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             ((VideoViewHolder) holder).image.setImageBitmap(bMap);
 
         }
+    }
+
+    private int[] getVoteData(VoteData voteData) {
+
+        long totalVotes=voteData.getYes()+voteData.getNo()+voteData.getNeutral();
+        int[] value={(int)(voteData.getYes()*100/totalVotes),(int)(voteData.getNeutral()*100/totalVotes),(int)(voteData.getNo()*100/totalVotes)};
+
+
+        return value;
     }
 
     @Override
