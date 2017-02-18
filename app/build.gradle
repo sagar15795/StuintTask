@@ -41,6 +41,6 @@ dependencies {
     compile "com.github.Raizlabs.DBFlow:dbflow:4.0.0-beta5"
 
 
-    compile 'in.championswimmer:SimpleFingerGestures_Android_Library:1.2'
+    compile 'com.facebook.stetho:stetho:1.4.2'
 
 }

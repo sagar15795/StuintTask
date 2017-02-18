@@ -22,19 +22,19 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="50"
-                    android:background="@android:color/darker_gray"/>
+                    android:background="@android:color/holo_red_light"/>
             <View
                     android:id="@+id/view2"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="25"
-                    android:background="@android:color/holo_blue_bright"/>
+                    android:background="@android:color/darker_gray"/>
             <View
                     android:id="@+id/view3"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="25"
-                    android:background="@android:color/holo_green_dark"/>
+                    android:background="#ffff00"/>
         </LinearLayout>
         <RelativeLayout
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="25sp"
-                    android:text="testing"/>
+                    />
             <ImageView
                     android:padding="5dp"
                     android:layout_below="@id/tv"

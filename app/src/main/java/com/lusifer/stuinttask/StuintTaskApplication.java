@@ -1,5 +1,6 @@
 package com.lusifer.stuinttask;
 
+import com.facebook.stetho.Stetho;
 import com.raizlabs.android.dbflow.config.FlowConfig;
 import com.raizlabs.android.dbflow.config.FlowManager;
 
@@ -21,7 +22,7 @@ public class StuintTaskApplication extends Application {
         if (instance == null) {
             instance = this;
         }
-
+        Stetho.initializeWithDefaults(this);
         FlowManager.init(new FlowConfig.Builder(this).build());
 
     }

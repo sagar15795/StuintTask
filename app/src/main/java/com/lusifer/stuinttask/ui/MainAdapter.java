@@ -1,10 +1,14 @@
-package com.lusifer.stuinttask;
+package com.lusifer.stuinttask.ui;
 
 
+import com.lusifer.stuinttask.R;
 import com.lusifer.stuinttask.data.model.Data;
+import com.lusifer.stuinttask.data.model.Type;
 import com.lusifer.stuinttask.data.model.VoteData;
+import com.lusifer.stuinttask.utils.OnSwipeTouchListener;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
@@ -23,6 +27,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.lusifer.stuinttask.ui.MainActivity.VIDEO_PATH;
+
 public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_VIDEO = 2;
@@ -30,11 +36,15 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final int VIEW_TEXT = 0;
     private final Context context;
     private List<Data> data;
+    private TouchHandler mTouchHandler;
+
 
     public MainAdapter(Context context, List<Data> data) {
         this.context = context;
         this.data = data;
+        mTouchHandler = (TouchHandler) context;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -63,38 +73,52 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         LinearLayout.LayoutParams paramview1, paramview2, paramview3;
+
         int[] voteData = getVoteData(data.get(position).getVoteData());
+
+        paramview1 = new LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.MATCH_PARENT, voteData[0]);
+
+        paramview2 = new LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.MATCH_PARENT, voteData[1]);
+
+        paramview3 = new LinearLayout.LayoutParams(
+                0,
+                LinearLayout.LayoutParams.MATCH_PARENT, voteData[2]);
+        OnSwipeTouchListener onSwipeTouchListener = new OnSwipeTouchListener(context) {
+            @Override
+            public void onSwipeLeft() {
+                addNo(position);
+                super.onSwipeLeft();
+            }
+
+            @Override
+            public void onSwipeRight() {
+                addYes(position);
+                super.onSwipeRight();
+            }
+
+            @Override
+            public void onClick() {
+                if (data.get(position).getType() == Type.Video) {
+                    showVideo(data.get(position).getData().getPath());
+                }
+                super.onClick();
+
+            }
+        };
         if (holder instanceof ViewHolder) {
 
-            paramview1 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[0]);
-
-            paramview2 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[1]);
-
-            paramview3 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[2]);
 
             ((ViewHolder) holder).view1.setLayoutParams(paramview1);
             ((ViewHolder) holder).view2.setLayoutParams(paramview2);
             ((ViewHolder) holder).view3.setLayoutParams(paramview3);
             ((ViewHolder) holder).tvTitle.setText(data.get(position).getTitle());
+            ((ViewHolder) holder).card.setOnTouchListener(onSwipeTouchListener);
+
         } else if (holder instanceof ImageViewHolder) {
-
-            paramview1 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[0]);
-
-            paramview2 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[1]);
-
-            paramview3 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[2]);
 
             ((ImageViewHolder) holder).view1.setLayoutParams(paramview1);
             ((ImageViewHolder) holder).view2.setLayoutParams(paramview2);
@@ -104,19 +128,8 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String picturePath = data.get(position).getData().getPath();
 
             ((ImageViewHolder) holder).image.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            ((ImageViewHolder) holder).card.setOnTouchListener(onSwipeTouchListener);
         } else if (holder instanceof VideoViewHolder) {
-            paramview1 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[0]);
-
-            paramview2 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[1]);
-
-            paramview3 = new LinearLayout.LayoutParams(
-                    0,
-                    LinearLayout.LayoutParams.MATCH_PARENT, voteData[2]);
-
 
             ((VideoViewHolder) holder).view1.setLayoutParams(paramview1);
             ((VideoViewHolder) holder).view2.setLayoutParams(paramview2);
@@ -127,16 +140,43 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             String picturePath = data.get(position).getData().getPath();
             Bitmap bMap = ThumbnailUtils.createVideoThumbnail(picturePath, MediaStore.Video.Thumbnails.MINI_KIND);
             ((VideoViewHolder) holder).image.setImageBitmap(bMap);
-
+            ((VideoViewHolder) holder).card.setOnTouchListener(onSwipeTouchListener);
         }
+    }
+
+    private void addYes(int position) {
+        Data localData = data.get(position);
+        VoteData voteData = localData.getVoteData();
+
+        voteData.setNeutral(voteData.getNeutral() >= 2 ? voteData.getNeutral() - 1 : 1);
+
+        voteData.setYes(voteData.getYes() + 1);
+
+        localData.setVoteData(voteData);
+        localData.update();
+
+        mTouchHandler.updateRecyclerView();
+
+    }
+
+    private void addNo(int position) {
+        Data localData = data.get(position);
+        VoteData voteData = localData.getVoteData();
+
+        voteData.setNeutral(voteData.getNeutral() >= 2 ? voteData.getNeutral() - 1 : 1);
+
+        voteData.setNo(voteData.getNo() + 1);
+
+        localData.setVoteData(voteData);
+        localData.update();
+
+        mTouchHandler.updateRecyclerView();
     }
 
     private int[] getVoteData(VoteData voteData) {
 
-        long totalVotes=voteData.getYes()+voteData.getNo()+voteData.getNeutral();
-        int[] value={(int)(voteData.getYes()*100/totalVotes),(int)(voteData.getNeutral()*100/totalVotes),(int)(voteData.getNo()*100/totalVotes)};
-
-
+        long totalVotes = voteData.getYes() + voteData.getNo() + voteData.getNeutral() - 1;
+        int[] value = {(int) (voteData.getYes() * 100 / totalVotes), (int) (voteData.getNeutral() * 100 / totalVotes), (int) (voteData.getNo() * 100 / totalVotes)};
         return value;
     }
 
@@ -162,6 +202,13 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         return VIEW_TEXT;
     }
+
+    private void showVideo(String path) {
+        Intent intent = new Intent(context, VideoActivity.class);
+        intent.putExtra(VIDEO_PATH, path);
+        context.startActivity(intent);
+    }
+
 
     class VideoViewHolder extends RecyclerView.ViewHolder {
 
@@ -241,5 +288,9 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
     }
 
+    public interface TouchHandler {
+
+        void updateRecyclerView();
+    }
 
 }

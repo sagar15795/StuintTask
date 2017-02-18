@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Stuint Task</string>
+    <string name="hint_post">Enter the post here</string>
+    <string name="button_text_post">POST</string>
+    <string name="button_text_dismiss">Dismiss</string>
+    <string name="button_text_browse_file">Browse File</string>
+    <string name="desc_imageview_preview">Preview</string>
+    <string name="message_add_post">Please click on + to add the Post</string>
 </resources>

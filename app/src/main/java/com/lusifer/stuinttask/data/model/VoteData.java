@@ -10,7 +10,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 @Table(database = StuintTaskDatabase.class)
 public class VoteData extends BaseModel {
 
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
     long id;
 
     @Column
