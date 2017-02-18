@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card"
+        android:padding="10dp"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="2dp"
+        android:layout_margin="2dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <RelativeLayout
+            android:orientation="vertical"
+            android:layout_margin="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:id="@+id/tv"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="testing"/>
+        <ImageView
+                android:layout_below="@id/tv"
+                android:id="@+id/ivImage"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_width="512px"
+                android:layout_height="384px"
+                android:src="@mipmap/ic_launcher"/>
+        <ImageView
+                android:id="@+id/ivPlay"
+                android:visibility="gone"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_play_arrow_black_48dp"/>
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
